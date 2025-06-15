@@ -7,6 +7,8 @@ import java.util.*;
 import com.example.Feline;
 import com.example.Lion;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,16 +30,11 @@ public class LionTest {
         verify(mockFeline).getKittens();
     }
 
-    @Test
-    void testHasManeForMale() throws Exception {
-        Lion lion = new Lion("Самец", mockFeline);
-        assertTrue(lion.doesHaveMane());
-    }
-
-    @Test
-    void testHasManeForFemale() throws Exception {
-        Lion lion = new Lion("Самка", mockFeline);
-        assertFalse(lion.doesHaveMane());
+    @ParameterizedTest
+    @CsvSource({ "Самец,true", "Самка,false" })
+    void testDoesHaveManeWithDifferentSex(String sex, boolean expected) throws Exception {
+        Lion lion = new Lion(sex, mockFeline);
+        assertEquals(expected, lion.doesHaveMane());
     }
 
     @Test
