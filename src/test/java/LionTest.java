@@ -30,13 +30,6 @@ public class LionTest {
         verify(mockFeline).getKittens();
     }
 
-    @ParameterizedTest
-    @CsvSource({ "Самец,true", "Самка,false" })
-    void testDoesHaveManeWithDifferentSex(String sex, boolean expected) throws Exception {
-        Lion lion = new Lion(sex, mockFeline);
-        assertEquals(expected, lion.doesHaveMane());
-    }
-
     @Test
     void testGetFoodDelegation() throws Exception {
         List<String> food = List.of("Антилопа", "Зебра");

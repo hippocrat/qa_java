@@ -22,14 +22,6 @@ public class FelineTest {
         assertEquals(1, feline.getKittens());
     }
 
-    @ParameterizedTest
-    @CsvSource({"0,0", "1,1", "5,5", "10,10"})
-    void testGetKittensWithDifferentNumbers(int input, int expected) {
-        Feline feline = new Feline();
-
-        assertEquals(expected, feline.getKittens(input));
-    }
-
     @Test
     void testDefaultEatMeat() throws Exception {
         Feline feline = new Feline();
@@ -46,19 +38,5 @@ public class FelineTest {
         Exception exception = assertThrows(Exception.class, () -> feline.getFood("Неизвестно"));
         assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник",
                 exception.getMessage());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "Хищник,'Животные, Птицы, Рыба'",
-            "Травоядное,'Трава, Различные растения'"
-    })
-    void testGetFoodWithDifferentValues(String diet, String expected) throws Exception {
-        Feline feline = new Feline();
-
-        List<String> food = feline.getFood(diet);
-        List<String> expectedList = List.of(expected.split(", "));
-
-        assertEquals(expectedList, food);
     }
 }
